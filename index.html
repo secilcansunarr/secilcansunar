@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Düzce Üniversitesi | Değer Üreten Üniversite</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        duzceNavy: '#0a192f',
+                        duzceDeep: '#062c30',
+                        duzceEmerald: '#059669',
+                        duzceTurquoise: '#0d9488',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Batı Karadeniz Doğası & Düzce Üniversitesi Temalı Özel Arka Plan */
+        body {
+            background-color: #071921;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.22) 0px, transparent 50%),
+                radial-gradient(at 100% 15%, rgba(13, 148, 136, 0.25) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.85) 0px, transparent 80%),
+                radial-gradient(at 85% 90%, rgba(5, 150, 105, 0.2) 0px, transparent 55%),
+                linear-gradient(135deg, #06141d 0%, #0a2530 45%, #072026 100%);
+            background-attachment: fixed;
+            color: #f1f5f9;
+            position: relative;
+        }
+
+        /* İnce Topografik / Doğal Doku Katmanı */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(rgba(45, 212, 191, 0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Cam Efekti (Glassmorphism) Kartlar */
+        .glass-card {
+            background: rgba(13, 33, 44, 0.68);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(45, 212, 191, 0.18);
+            box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.45);
+        }
+
+        .glass-nav {
+            background: rgba(6, 20, 29, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(45, 212, 191, 0.2);
+        }
+
+        /* Excel Çalışma Sayfası Özel Stilleri */
+        .excel-wrapper {
+            border: 2px solid #1d6f42;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            background: #ffffff;
+            color: #1e293b;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        .excel-table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.875rem;
+        }
+
+        .excel-table th, .excel-table td {
+            border: 1px solid #cbd5e1;
+            padding: 0.65rem 0.85rem;
+            text-align: left;
+        }
+
+        /* Excel Sütun Harfleri (A, B, C...) */
+        .excel-col-header {
+            background-color: #e2e8f0;
+            color: #334155;
+            font-weight: 700;
+            text-align: center !important;
+            font-size: 0.75rem;
+            border-bottom: 2px solid #94a3b8 !important;
+            user-select: none;
+        }
+
+        /* Excel Satır Numaraları (1, 2, 3...) */
+        .excel-row-num {
+            background-color: #e2e8f0;
+            color: #475569;
+            font-weight: 600;
+            text-align: center !important;
+            width: 42px;
+            font-size: 0.75rem;
+            border-right: 2px solid #94a3b8 !important;
+            user-select: none;
+        }
+
+        /* Excel Tablo Başlık Satırı */
+        .excel-header-row td {
+            background-color: #1d6f42;
+            color: #ffffff;
+            font-weight: 600;
+            border-color: #145331;
+        }
+
+        /* Excel Zebra Satırlar ve Hücre Hover/Seçim Vurgusu */
+        .excel-data-row:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .excel-data-row:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        .excel-data-row td:not(.excel-row-num):hover {
+            outline: 2px solid #107c41;
+            outline-offset: -2px;
+            background-color: #ecfdf5;
+            cursor: cell;
+        }
+        .excel-cell-active {
+            outline: 2px solid #107c41 !important;
+            outline-offset: -2px;
+            background-color: #d1fae5 !important;
+        }
+
+        /* Akordiyon Animasyonu */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out, padding 0.35s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 400px;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Üst Navigasyon Menüsü -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo ve İsim -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white font-extrabold text-lg shadow-lg shadow-emerald-900/50 group-hover:scale-105 transition-transform">
+                        DÜ
+                    </div>
+                    <div>
+                        <span class="block font-bold text-base md:text-lg tracking-wide text-white leading-tight">DÜZCE ÜNİVERSİTESİ</span>
+                        <span class="block text-[11px] text-emerald-300 font-medium tracking-wider">DEĞER ÜRETEN ÜNİVERSİTE</span>
+                    </div>
+                </a>
+
+                <!-- Masaüstü Menü -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <a href="#hakkinda" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-emerald-300 hover:bg-white/5 transition">Hakkında</a>
+                    <a href="#fakulteler" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-emerald-300 hover:bg-white/5 transition">Fakülteler ve Bölümler</a>
+                    <a href="#basari" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-emerald-300 hover:bg-white/5 transition">Başarı Tabloları</a>
+                    <a href="#galeri" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-emerald-300 hover:bg-white/5 transition">Galeri</a>
+                    <a href="#sss" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:text-emerald-300 hover:bg-white/5 transition">SSS</a>
+                    <a href="#iletisim" class="ml-2 px-4 py-2 rounded-xl text-sm font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md transition">İletişim</a>
+                </nav>
+
+                <!-- Mobil Menü Butonu -->
+                <button id="mobile-menu-btn" aria-label="Menüyü Aç" class="lg:hidden p-2.5 rounded-xl text-slate-200 hover:bg-white/10 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobil Açılır Menü -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-teal-500/20 bg-[#061822]/95 px-4 pt-3 pb-5 space-y-1">
+            <a href="#hakkinda" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300">Hakkında</a>
+            <a href="#fakulteler" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300">Fakülteler ve Bölümler</a>
+            <a href="#basari" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300">Başarı Tabloları</a>
+            <a href="#galeri" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300">Galeri</a>
+            <a href="#sss" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300">Sık Sorulan Sorular</a>
+            <a href="#iletisim" class="mobile-link block px-3 py-2.5 rounded-lg text-base font-semibold text-emerald-300 bg-emerald-500/10">İletişim & Konum</a>
+        </div>
+    </header>
+
+    <!-- Ana İçerik -->
+    <main class="relative z-10">
+
+        <!-- 1. Karşılama Alanı (Hero) -->
+        <section class="relative pt-14 pb-20 md:pt-24 md:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div class="max-w-6xl mx-auto text-center">
+                <!-- Üst Rozet -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs sm:text-sm font-medium mb-6 shadow-sm">
+                    <i class="fa-solid fa-leaf text-emerald-400"></i>
+                    <span>Çevre ve Sağlık Alanlarında İhtisas Üniversitesi • Konuralp / Düzce</span>
+                </div>
+
+                <!-- Üniversite İsmi -->
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-4 drop-shadow-lg">
+                    DÜZCE <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300">ÜNİVERSİTESİ</span>
+                </h1>
+
+                <!-- Üniversite Sloganı -->
+                <div class="my-5">
+                    <p class="inline-block text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-emerald-200 bg-white/5 border border-teal-400/25 px-6 py-2.5 rounded-2xl shadow-inner">
+                        “Değer Üreten Üniversite”
+                    </p>
+                </div>
+
+                <!-- Alt Açıklama -->
+                <p class="max-w-3xl mx-auto text-base sm:text-lg text-slate-300 leading-relaxed mt-6 mb-10">
+                    Batı Karadeniz’in yeşil doğası ile bilimin ışığını birleştiren Konuralp Yerleşkemizde; yenilikçi araştırmalar, güçlü akademik kadro ve girişimci ekosistemimizle geleceğin bilim insanlarını ve liderlerini yetiştiriyoruz.
+                </p>
+
+                <!-- Eylem Butonları -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#fakulteler" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-lg shadow-emerald-950/60 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>Fakülteleri Keşfet</span>
+                    </a>
+                    <a href="#iletisim" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold glass-card hover:bg-white/10 text-emerald-200 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-location-dot text-emerald-400"></i>
+                        <span>Kampüse Mesafeni Ölç</span>
+                    </a>
+                </div>
+
+                <!-- Hızlı İstatistik Kartları -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14 max-w-4xl mx-auto">
+                    <div class="glass-card rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">2006</div>
+                        <div class="text-xs sm:text-sm text-slate-300 mt-1">Kuruluş Yılı</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-teal-300">14+</div>
+                        <div class="text-xs sm:text-sm text-slate-300 mt-1">Fakülte & Yüksekokul</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-cyan-300">30.000+</div>
+                        <div class="text-xs sm:text-sm text-slate-300 mt-1">Aktif Öğrenci</div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-300">100+</div>
+                        <div class="text-xs sm:text-sm text-slate-300 mt-1">Ar-Ge & Teknopark Projesi</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Hakkında Bölümü -->
+        <section id="hakkinda" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 md:p-12">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-teal-500/20 pb-6 mb-8">
+                    <div>
+                        <span class="text-emerald-400 font-semibold text-sm uppercase tracking-wider">Kurumsal Tarihçe ve Vizyon</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-1">Düzce Üniversitesi Hakkında</h2>
+                    </div>
+                    <div class="inline-flex items-center gap-2 text-xs sm:text-sm bg-emerald-950/80 border border-emerald-500/30 px-4 py-2 rounded-xl text-emerald-300">
+                        <i class="fa-solid fa-award text-emerald-400"></i>
+                        <span>Bölgesel Kalkınma Odaklı İhtisas Üniversitesi</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 space-y-5 text-slate-200 leading-relaxed text-sm sm:text-base">
+                        <p>
+                            <strong class="text-emerald-300">Düzce Üniversitesi</strong>, 17 Mart 2006 tarihinde Abant İzzet Baysal Üniversitesi bünyesinde yer alan akademik birimlerin birleştirilmesiyle kurulmuş genç, dinamik ve yenilikçi bir devlet üniversitesidir. Kurulduğu ilk günden itibaren <em>“Değer Üreten Üniversite”</em> vizyonuyla hareket eden kurumumuz, kısa sürede Türkiye'nin en hızlı gelişen yükseköğretim kurumları arasında yerini almıştır.
+                        </p>
+                        <p>
+                            Yükseköğretim Kurulu (YÖK) tarafından yürütülen <strong>“Bölgesel Kalkınma Odaklı Misyon Farklılaşması ve İhtisaslaşması”</strong> projesi kapsamında <span class="text-teal-300 font-medium">“Çevre ve Sağlık”</span> alanlarında pilot üniversite seçilen Düzce Üniversitesi; biyolojik çeşitlilik, tıbbi ve aromatik bitkiler, geleneksel ve tamamlayıcı tıp, tarımsal atıkların geri kazanımı ve sürdürülebilir çevre teknolojileri konularında Türkiye'ye öncülük etmektedir.
+                        </p>
+                        <p>
+                            Ana yerleşkemiz olan <strong>Konuralp Yerleşkesi</strong>; modern derslikleri, ileri teknolojiye sahip merkezi araştırma laboratuvarları, Tıp Fakültesi Araştırma ve Uygulama Hastanesi, zengin kütüphanesi, kapalı spor salonları ve <strong>Düzce Teknopark</strong> girişimcilik ekosistemi ile öğrencilerimize hem akademik hem de sosyal açıdan donanımlı bir üniversite yaşamı sunmaktadır.
+                        </p>
+                    </div>
+
+                    <!-- Sağ Taraf Öne Çıkan Değerler -->
+                    <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                        <div class="bg-slate-900/60 border border-teal-500/20 rounded-2xl p-5 flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-seedling text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">Çevre ve Sağlık İhtisaslaşması</h3>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-1">Bölgenin doğal zenginliklerini katma değerli sağlık ve çevre ürünlerine dönüştüren Ar-Ge merkezleri.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900/60 border border-teal-500/20 rounded-2xl p-5 flex items-start gap-4">
+                            <div class="w-11 h-11 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-microchip text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">Düzce Teknopark & İnovasyon</h3>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-1">Öğrenci ve akademisyenlerin yazılım, mühendislik ve biyoteknoloji girişimlerini ticarileştirdiği teknoloji üssü.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900/60 border border-teal-500/20 rounded-2xl p-5 flex items-start gap-4 sm:col-span-2 lg:col-span-1">
+                            <div class="w-11 h-11 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-users text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-base">Öğrenci Odaklı Kampüs Yaşamı</h3>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-1">100'den fazla aktif öğrenci topluluğu, Erasmus+ uluslararası değişim ağları ve doğayla iç içe güvenli kampüs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Fakülteler ve Bölümler -->
+        <section id="fakulteler" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-emerald-400 font-semibold text-sm uppercase tracking-wider">Akademik Birimlerimiz</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-1">Fakülteler ve Bölümler</h2>
+                <p class="text-slate-300 text-sm sm:text-base mt-3">
+                    Bilimsel yetkinliği yüksek akademik kadromuzla eğitim veren fakültelerimiz ve bağlı lisans programlarımız.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- 1. Mühendislik Fakültesi -->
+                <div class="glass-card rounded-2xl p-6 hover:border-emerald-400/40 transition">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-teal-500/20">
+                        <span class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center">1.</span>
+                        <h3 class="text-lg font-bold text-white">1. Mühendislik Fakültesi</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-200">
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">A.</span>
+                            <span>Bilgisayar Mühendisliği</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">B.</span>
+                            <span>Elektrik-Elektronik Mühendisliği</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>Makine Mühendisliği</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>Mekatronik Mühendisliği</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 2. Tıp Fakültesi -->
+                <div class="glass-card rounded-2xl p-6 hover:border-emerald-400/40 transition">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-teal-500/20">
+                        <span class="w-9 h-9 rounded-lg bg-teal-500/20 text-teal-300 font-bold flex items-center justify-center">2.</span>
+                        <h3 class="text-lg font-bold text-white">2. Tıp Fakültesi</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-200">
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-200">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Temel Tıp Bilimleri</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-200">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Dahili Tıp Bilimleri</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-200">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Cerrahi Tıp Bilimleri</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 3. Orman Fakültesi -->
+                <div class="glass-card rounded-2xl p-6 hover:border-emerald-400/40 transition">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-teal-500/20">
+                        <span class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center">3.</span>
+                        <h3 class="text-lg font-bold text-white">3. Orman Fakültesi</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-200">
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">A.</span>
+                            <span>Orman Mühendisliği</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">B.</span>
+                            <span>Orman Endüstri Mühendisliği</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>Peyzaj Mimarlığı</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>Yaban Hayatı Ekolojisi ve Yönetimi</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 4. İşletme Fakültesi -->
+                <div class="glass-card rounded-2xl p-6 hover:border-emerald-400/40 transition">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-teal-500/20">
+                        <span class="w-9 h-9 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold flex items-center justify-center">4.</span>
+                        <h3 class="text-lg font-bold text-white">4. İşletme Fakültesi</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-200">
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">A.</span>
+                            <span>Yönetim Bilişim Sistemleri</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">B.</span>
+                            <span>Uluslararası Ticaret ve Finansman</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>İşletme</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>Sağlık Yönetimi</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 5. Eğitim Fakültesi -->
+                <div class="glass-card rounded-2xl p-6 hover:border-emerald-400/40 transition">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-teal-500/20">
+                        <span class="w-9 h-9 rounded-lg bg-teal-500/20 text-teal-300 font-bold flex items-center justify-center">5.</span>
+                        <h3 class="text-lg font-bold text-white">5. Eğitim Fakültesi</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-200">
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-200">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Bilgisayar ve Öğretim Teknolojileri Eğitimi</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-200">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Rehberlik ve Psikolojik Danışmanlık</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-200">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>İngilizce Öğretmenliği</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 6. Sanat, Tasarım ve Mimarlık Fakültesi -->
+                <div class="glass-card rounded-2xl p-6 hover:border-emerald-400/40 transition">
+                    <div class="flex items-center gap-3 mb-4 pb-3 border-b border-teal-500/20">
+                        <span class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold flex items-center justify-center">6.</span>
+                        <h3 class="text-lg font-bold text-white">6. Sanat, Tasarım ve Mimarlık Fakültesi</h3>
+                    </div>
+                    <ul class="space-y-2.5 text-sm text-slate-200">
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">A.</span>
+                            <span>Mimarlık</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 font-medium text-emerald-200">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">B.</span>
+                            <span>Görsel İletişim Tasarımı</span>
+                        </li>
+                        <li class="flex items-center gap-2.5 pl-2 text-slate-300">
+                            <span class="text-teal-400 font-bold">•</span>
+                            <span>Radyo, Televizyon ve Sinema</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Başarı Tabloları (Excel Görünümlü Tablo) -->
+        <section id="basari" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-emerald-400 font-semibold text-sm uppercase tracking-wider">Kariyer ve İstihdam</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-1">Mezun Başarı Tablosu</h2>
+                <p class="text-slate-300 text-sm sm:text-base mt-3">
+                    Düzce Üniversitesi mezunlarının ulusal ve uluslararası teknoloji, sağlık, enerji ve finans devlerindeki kariyer başarıları.
+                </p>
+            </div>
+
+            <!-- Excel Çerçevesi -->
+            <div class="excel-wrapper">
+                <!-- Excel Üst Araç Çubuğu -->
+                <div class="bg-[#1d6f42] text-white px-4 py-2.5 flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-file-excel text-lg"></i>
+                        <span class="font-semibold text-sm tracking-wide">Duzce_Uni_Mezun_Basari_Kayitlari.xlsx</span>
+                    </div>
+                    <div class="text-xs bg-[#145331] px-3 py-1 rounded text-emerald-100 font-mono">
+                        Sayfa1 • Salt Okunur Rapor
+                    </div>
+                </div>
+
+                <!-- Excel Formül Çubuğu -->
+                <div class="bg-[#f1f5f9] border-b border-slate-300 px-3 py-1.5 flex items-center gap-3 text-xs font-mono text-slate-700">
+                    <span id="excel-cell-ref" class="bg-white border border-slate-300 px-2.5 py-0.5 rounded font-bold text-slate-800 min-w-[48px] text-center">A1</span>
+                    <span class="text-slate-400 italic font-serif font-bold text-sm">fx</span>
+                    <div id="excel-formula-bar" class="bg-white border border-slate-300 px-3 py-0.5 rounded flex-1 truncate text-slate-700">
+                        Mezun Adı Soyadı
+                    </div>
+                </div>
+
+                <!-- Yatay Kaydırmalı Excel Tablosu -->
+                <div class="overflow-x-auto">
+                    <table class="excel-table" id="alumni-excel-table">
+                        <thead>
+                            <tr>
+                                <th class="excel-col-header"></th>
+                                <th class="excel-col-header">A</th>
+                                <th class="excel-col-header">B</th>
+                                <th class="excel-col-header">C</th>
+                                <th class="excel-col-header">D</th>
+                                <th class="excel-col-header">E</th>
+                                <th class="excel-col-header">F</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Satır 1: Kolon Başlıkları -->
+                            <tr class="excel-header-row">
+                                <td class="excel-row-num">1</td>
+                                <td data-cell="A1">Mezun Adı Soyadı</td>
+                                <td data-cell="B1">Bölüm</td>
+                                <td data-cell="C1">Mezuniyet Yılı</td>
+                                <td data-cell="D1">Çalıştığı Şirket</td>
+                                <td data-cell="E1">Ünvan / Meslek</td>
+                                <td data-cell="F1">Öne Çıkan Başarı</td>
+                            </tr>
+                            <!-- Satır 2 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">2</td>
+                                <td data-cell="A2" class="font-semibold text-slate-900">Ahmet Kaan Yılmaz</td>
+                                <td data-cell="B2">Bilgisayar Mühendisliği</td>
+                                <td data-cell="C2" class="text-center font-mono">2020</td>
+                                <td data-cell="D2" class="font-medium text-emerald-800">KuzeyBulut Teknoloji A.Ş.</td>
+                                <td data-cell="E2">Kıdemli Yapay Zeka Mimarı</td>
+                                <td data-cell="F2">Yerli doğal dil işleme modelini geliştirerek Avrupa'da Yılın Genç Mühendisi ödülünü aldı.</td>
+                            </tr>
+                            <!-- Satır 3 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">3</td>
+                                <td data-cell="A3" class="font-semibold text-slate-900">Zeynep Elif Karahan</td>
+                                <td data-cell="B3">Tıp Fakültesi</td>
+                                <td data-cell="C3" class="text-center font-mono">2018</td>
+                                <td data-cell="D3" class="font-medium text-emerald-800">BioNova Sağlık Araştırmaları</td>
+                                <td data-cell="E3">Klinik Araştırmalar Direktörü</td>
+                                <td data-cell="F3">Bitkisel biyoteknoloji temelli onkoloji destek faz-3 çalışmalarına liderlik etti.</td>
+                            </tr>
+                            <!-- Satır 4 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">4</td>
+                                <td data-cell="A4" class="font-semibold text-slate-900">Mert Can Özdemir</td>
+                                <td data-cell="B4">Elektrik-Elektronik Müh.</td>
+                                <td data-cell="C4" class="text-center font-mono">2021</td>
+                                <td data-cell="D4" class="font-medium text-emerald-800">VoltEnerji & Otonom Sistemler</td>
+                                <td data-cell="E4">Batarya Yönetim Sistemleri Lideri</td>
+                                <td data-cell="F4">Elektrikli araçlarda %18 daha hızlı şarj sağlayan akıllı termal kontrol patenti aldı.</td>
+                            </tr>
+                            <!-- Satır 5 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">5</td>
+                                <td data-cell="A5" class="font-semibold text-slate-900">Selin Su Aksoy</td>
+                                <td data-cell="B5">Orman Endüstri Mühendisliği</td>
+                                <td data-cell="C5" class="text-center font-mono">2019</td>
+                                <td data-cell="D5" class="font-medium text-emerald-800">EkoAhşap Sürdürülebilir Yapı</td>
+                                <td data-cell="E5">Ar-Ge ve Sürdürülebilirlik Müdürü</td>
+                                <td data-cell="F5">Karbon negatif biyopolimer kompozit panel üretimiyle 14 ülkeye ihracat başlattı.</td>
+                            </tr>
+                            <!-- Satır 6 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">6</td>
+                                <td data-cell="A6" class="font-semibold text-slate-900">Burak Alp Demirtaş</td>
+                                <td data-cell="B6">Yönetim Bilişim Sistemleri</td>
+                                <td data-cell="C6" class="text-center font-mono">2022</td>
+                                <td data-cell="D6" class="font-medium text-emerald-800">FinansAkış Dijital Bankacılık</td>
+                                <td data-cell="E6">Ürün Yönetimi Başkan Yardımcısı</td>
+                                <td data-cell="F6">2 milyon aktif kullanıcıya ulaşan KOBİ mikro-kredi yapay zeka skorlama sistemini kurdu.</td>
+                            </tr>
+                            <!-- Satır 7 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">7</td>
+                                <td data-cell="A7" class="font-semibold text-slate-900">İrem Naz Çelik</td>
+                                <td data-cell="B7">Mimarlık</td>
+                                <td data-cell="C7" class="text-center font-mono">2019</td>
+                                <td data-cell="D7" class="font-medium text-emerald-800">YeşilÇizgi Ekolojik Mimarlık</td>
+                                <td data-cell="E7">Kurucu Ortak & Baş Mimar</td>
+                                <td data-cell="F7">Sıfır enerjili ahşap kampüs tasarımıyla Uluslararası Yeşil Bina Tasarım Ödülü kazandı.</td>
+                            </tr>
+                            <!-- Satır 8 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">8</td>
+                                <td data-cell="A8" class="font-semibold text-slate-900">Emre Tarık Şahin</td>
+                                <td data-cell="B8">Mekatronik Mühendisliği</td>
+                                <td data-cell="C8" class="text-center font-mono">2020</td>
+                                <td data-cell="D8" class="font-medium text-emerald-800">AeroSavunma Robotik A.Ş.</td>
+                                <td data-cell="E8">Otonom Uçuş Kontrol Mühendisi</td>
+                                <td data-cell="F8">Orman yangınlarını erken tespit eden otonom sürü İHA yazılımını geliştirdi.</td>
+                            </tr>
+                            <!-- Satır 9 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">9</td>
+                                <td data-cell="A9" class="font-semibold text-slate-900">Derya Melis Aydın</td>
+                                <td data-cell="B9">Uluslararası Ticaret ve Finans</td>
+                                <td data-cell="C9" class="text-center font-mono">2017</td>
+                                <td data-cell="D9" class="font-medium text-emerald-800">Avrasya Lojistik ve Dış Ticaret</td>
+                                <td data-cell="E9">Küresel Tedarik Zinciri Direktörü</td>
+                                <td data-cell="F9">Batı Karadeniz limanları üzerinden Avrupa'ya yeşil lojistik koridoru operasyonunu yönetti.</td>
+                            </tr>
+                            <!-- Satır 10 -->
+                            <tr class="excel-data-row">
+                                <td class="excel-row-num">10</td>
+                                <td data-cell="A10" class="font-semibold text-slate-900">Onur Kaan Polat</td>
+                                <td data-cell="B10">Makine Mühendisliği</td>
+                                <td data-cell="C10" class="text-center font-mono">2021</td>
+                                <td data-cell="D10" class="font-medium text-emerald-800">HidroTürbin Yenilenebilir Enerji</td>
+                                <td data-cell="E10">Baş Tasarım Mühendisi</td>
+                                <td data-cell="F10">Düşük debili akarsular için yüksek verimli mikro-hidroelektrik türbin kanadı tasarladı.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Excel Alt Durum Çubuğu -->
+                <div class="bg-[#e2e8f0] border-t border-slate-300 px-4 py-1.5 flex items-center justify-between text-xs text-slate-600">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-white text-[#1d6f42] font-bold px-2.5 py-0.5 rounded-t border-b-2 border-[#1d6f42]">Mezun_Basarilari</span>
+                        <span class="px-2 py-0.5 text-slate-500">İstatistikler</span>
+                    </div>
+                    <div>Kayıt Sayısı: 9 Mezun • Hücreye tıklayarak formül çubuğunda inceleyebilirsiniz</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Galeri Bölümü (D:\üniversite\1.jpg ... 10.jpg Rastgele Sıralı) -->
+        <section id="galeri" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-emerald-400 font-semibold text-sm uppercase tracking-wider">Kampüsten Kareler</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-1">Üniversite Galerisi</h2>
+                    <p class="text-slate-300 text-sm sm:text-base mt-2">
+                        Yerel arşiv dizininden (<code class="text-emerald-300 bg-white/10 px-1.5 py-0.5 rounded">D:\üniversite\</code>) karışık sırayla yüklenen 10 kampüs fotoğrafı.
+                    </p>
+                </div>
+                <button id="shuffle-gallery-btn" class="self-start md:self-auto px-4 py-2.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-400/40 text-emerald-200 text-sm font-medium transition flex items-center gap-2">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <span>Sırayı Karıştır</span>
+                </button>
+            </div>
+
+            <!-- 10 Görsellik CSS Grid -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+                <!-- Görseller JS tarafından rastgele/karışık sırayla (7, 2, 10, 4, 1, 9, 5, 3, 8, 6) oluşturulur -->
+            </div>
+        </section>
+
+        <!-- 6. Sık Sorulan Sorular (SSS) -->
+        <section id="sss" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-emerald-400 font-semibold text-sm uppercase tracking-wider">Aday ve Öğrenci Rehberi</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-1">Sık Sorulan Sorular</h2>
+                <p class="text-slate-300 text-sm sm:text-base mt-2">
+                    Konuralp Yerleşkesi, ulaşım, barınma, çift anadal ve burs imkanları hakkında en çok merak edilenler.
+                </p>
+            </div>
+
+            <div class="space-y-4" id="faq-container">
+                <!-- Soru 1 -->
+                <div class="faq-item glass-card rounded-2xl overflow-hidden active">
+                    <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition">
+                        <span class="font-semibold text-base sm:text-lg text-white">1. Konuralp Yerleşkesi'ne ulaşım nasıl sağlanır?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon text-emerald-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-teal-500/15 pt-3">
+                            Düzce şehir merkezine yaklaşık 8 km mesafede bulunan Konuralp Yerleşkesi'ne belediye otobüsleri ve düzenli dolmuş hatları ile 15-20 dakikada ulaşılabilmektedir. Ayrıca Düzce, İstanbul ve Ankara'nın tam ortasında (TEM Otoyolu ve D-100 Karayolu üzerinde) yer aldığı için şehirlerarası otobüs terminalinden kampüse doğrudan toplu taşıma bağlantısı mevcuttur.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soru 2 -->
+                <div class="faq-item glass-card rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition">
+                        <span class="font-semibold text-base sm:text-lg text-white">2. KYK yurtları ve barınma imkanları nelerdir?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon text-emerald-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-teal-500/15 pt-3">
+                            Konuralp Yerleşkesi'nin hemen çevresinde Gençlik ve Spor Bakanlığı'na (KYK) bağlı yüksek kapasiteli kız ve erkek öğrenci yurtları bulunmaktadır. Yurtların büyük bölümü kampüse yürüme mesafesindedir. Bunun yanı sıra Konuralp bölgesinde çok sayıda özel öğrenci yurdu, apart ve eşyalı kiralık daire seçeneği yer almaktadır.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soru 3 -->
+                <div class="faq-item glass-card rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition">
+                        <span class="font-semibold text-base sm:text-lg text-white">3. Çift Anadal (ÇAP) ve Yandal imkanları var mı?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon text-emerald-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-teal-500/15 pt-3">
+                            Evet. Başarı şartlarını (genel not ortalaması ve sınıf sıralaması kriterlerini) sağlayan lisans öğrencilerimiz, kendi bölümlerinin yanı sıra ilgi duydukları ikinci bir bölümde <strong>Çift Anadal Programı (ÇAP)</strong> yaparak iki ayrı lisans diploması alabilir veya <strong>Yandal</strong> programlarıyla ek uzmanlık sertifikası edinebilirler.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soru 4 -->
+                <div class="faq-item glass-card rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition">
+                        <span class="font-semibold text-base sm:text-lg text-white">4. İhtisaslaşma üniversitesi olmanın öğrencilere katkısı nedir?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon text-emerald-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-teal-500/15 pt-3">
+                            YÖK tarafından “Çevre ve Sağlık” alanlarında ihtisas üniversitesi seçilmemiz sayesinde; öğrencilerimiz TÜBİTAK ve BAP destekli uygulamalı araştırma projelerinde bursiyer olarak yer alabilmekte, modern laboratuvar altyapılarını aktif kullanabilmekte ve bölgesel sanayi-üniversite iş birlikleri aracılığıyla mezuniyet öncesi iş deneyimi kazanmaktadır.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soru 5 -->
+                <div class="faq-item glass-card rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition">
+                        <span class="font-semibold text-base sm:text-lg text-white">5. Yemekhane, kısmi zamanlı çalışma ve burs imkanları nelerdir?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon text-emerald-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-teal-500/15 pt-3">
+                            Merkezi öğrenci yemekhanemizde diyetisyen kontrolünde hazırlanan 4 çeşit öğle ve akşam yemeği oldukça ekonomik ücretlerle sunulmaktadır. İhtiyaç sahibi öğrencilerimize yemek bursu sağlanmakta, ayrıca Sağlık Kültür ve Spor Daire Başkanlığı (SKS) bünyesinde kütüphane, laboratuvar ve idari birimlerde <strong>Kısmi Zamanlı Öğrenci</strong> olarak çalışma imkanı tanınmaktadır.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Soru 6 -->
+                <div class="faq-item glass-card rounded-2xl overflow-hidden">
+                    <button type="button" class="faq-btn w-full px-6 py-4 text-left flex items-center justify-between gap-4 hover:bg-white/5 transition">
+                        <span class="font-semibold text-base sm:text-lg text-white">6. Düzce Teknopark'ta staj ve girişimcilik imkanları var mı?</span>
+                        <i class="fa-solid fa-chevron-down faq-icon text-emerald-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6">
+                        <p class="pb-5 text-slate-300 text-sm sm:text-base leading-relaxed border-t border-teal-500/15 pt-3">
+                            Kampüs içerisinde yer alan <strong>Düzce Teknopark</strong>'ta yazılım, yapay zeka, savunma, enerji ve biyoteknoloji alanlarında faaliyet gösteren onlarca firma bulunmaktadır. Öğrencilerimiz bu şirketlerde uzun dönemli staj yapabilir, Ön Kuluçka Merkezi'nde kendi iş fikirlerini şirketleştirerek mentorluk ve yatırımcı desteği alabilirler.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. İletişim ve Konum Alma Bölümü -->
+        <section id="iletisim" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 md:p-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Sol Kolon: İletişim Bilgileri -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div>
+                            <span class="text-emerald-400 font-semibold text-sm uppercase tracking-wider">Bize Ulaşın</span>
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mt-1">İletişim ve Kampüs Konumu</h2>
+                            <p class="text-slate-300 text-sm sm:text-base mt-2">
+                                Akademik birimlerimiz, öğrenci işleri ve kampüs ulaşımı ile ilgili tüm sorularınız için iletişim kanallarımız.
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Adres -->
+                            <div class="flex items-start gap-4 bg-slate-900/60 border border-teal-500/20 p-4 rounded-2xl">
+                                <div class="w-11 h-11 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-map-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-300">Adres</h3>
+                                    <p class="text-white font-medium text-sm sm:text-base mt-1 leading-relaxed">
+                                        Düzce Üniversitesi Konuralp Yerleşkesi<br>
+                                        Orhangazi Mah. Merkez/DÜZCE, 81620
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Telefon ve Faks -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-3.5 bg-slate-900/60 border border-teal-500/20 p-4 rounded-2xl">
+                                    <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xs font-bold uppercase tracking-wider text-teal-300">Telefon</h3>
+                                        <a href="tel:08508008181" class="text-white font-semibold text-base hover:text-emerald-300 transition block mt-0.5">
+                                            0850 800 81 81
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3.5 bg-slate-900/60 border border-teal-500/20 p-4 rounded-2xl">
+                                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0">
+                                        <i class="fa-solid fa-fax"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-300">Faks</h3>
+                                        <p class="text-white font-semibold text-base mt-0.5">
+                                            0380 542 11 03
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sağ Kolon: Etkileşimli Konum Alma ve Mesafe Ölçme Modülü -->
+                    <div class="lg:col-span-6">
+                        <div class="bg-gradient-to-br from-slate-900/90 to-[#08262c]/90 border border-emerald-400/30 rounded-2xl p-6 sm:p-8 shadow-xl">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center animate-pulse">
+                                        <i class="fa-solid fa-satellite-dish"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-white text-lg">Canlı Konum & Mesafe Ölçer</h3>
+                                        <p class="text-xs text-slate-300">Konuralp Yerleşkesi (40.9056° K, 31.1811° D)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+                                Bulunduğunuz noktadan Düzce Üniversitesi Konuralp Yerleşkesi'ne olan kuş uçuşu mesafenizi anlık olarak hesaplamak ve yol tarifi almak için konum erişimine izin verin.
+                            </p>
+
+                            <button id="get-location-btn" type="button" class="w-full py-3.5 px-5 rounded-xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white shadow-lg shadow-emerald-950/60 transition flex items-center justify-center gap-2.5 cursor-pointer">
+                                <i class="fa-solid fa-location-crosshairs text-lg"></i>
+                                <span>Konumumu Al ve Kampüse Mesafeyi Ölç</span>
+                            </button>
+
+                            <!-- Konum Sonuç Kutusu (Başlangıçta Gizli) -->
+                            <div id="location-result-box" class="hidden mt-5 p-4 rounded-xl bg-slate-950/70 border border-emerald-500/30 space-y-3">
+                                <div class="flex items-center justify-between text-xs text-emerald-300 font-semibold border-b border-white/10 pb-2">
+                                    <span><i class="fa-solid fa-circle-check mr-1.5"></i>Konum Başarıyla Alındı</span>
+                                    <span id="location-accuracy" class="font-mono text-slate-400"></span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3 text-sm">
+                                    <div class="bg-white/5 p-2.5 rounded-lg">
+                                        <span class="block text-[11px] text-slate-400">Sizin Koordinatlarınız</span>
+                                        <span id="user-coords" class="font-mono text-xs sm:text-sm text-white font-semibold">-</span>
+                                    </div>
+                                    <div class="bg-emerald-500/15 border border-emerald-400/30 p-2.5 rounded-lg">
+                                        <span class="block text-[11px] text-emerald-300">Kampüse Kuş Uçuşu Mesafe</span>
+                                        <span id="campus-distance" class="font-mono text-sm sm:text-base text-emerald-300 font-extrabold">-</span>
+                                    </div>
+                                </div>
+
+                                <a id="gmaps-directions-link" href="https://www.google.com/maps/dir/?api=1&destination=40.9056,31.1811" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-diamond-turn-right text-emerald-400"></i>
+                                    <span>Google Haritalar ile Yol Tarifi Başlat</span>
+                                </a>
+                            </div>
+
+                            <!-- Hata / Bilgilendirme Mesaj Kutusu (alert() yerine) -->
+                            <div id="location-error-box" class="hidden mt-4 p-3.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-amber-200 text-xs sm:text-sm flex items-start gap-2.5">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400 mt-0.5"></i>
+                                <span id="location-error-text"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 8. En Alt Kısım (Footer) -->
+    <footer class="relative z-10 border-t border-teal-500/20 bg-[#041017]/90 py-10 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <p class="text-slate-400 text-xs sm:text-sm">
+                © 2026 Düzce Üniversitesi — Değer Üreten Üniversite • Konuralp Yerleşkesi, Düzce
+            </p>
+            <div>
+                <a href="https://www.duzce.edu.tr/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-950 transition transform hover:-translate-y-0.5">
+                    <span>resmi siteye git</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Etkileşimleri -->
+    <script>
+        // 1. Mobil Menü Açma/Kapatma
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 2. Excel Tablosu Hücre Seçimi ve Formül Çubuğu Güncelleme
+        const excelCells = document.querySelectorAll('#alumni-excel-table td[data-cell]');
+        const cellRefDisplay = document.getElementById('excel-cell-ref');
+        const formulaBarDisplay = document.getElementById('excel-formula-bar');
+
+        excelCells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                excelCells.forEach(c => c.classList.remove('excel-cell-active'));
+                cell.classList.add('excel-cell-active');
+                cellRefDisplay.textContent = cell.getAttribute('data-cell');
+                formulaBarDisplay.textContent = cell.textContent.trim();
+            });
+        });
+
+        // 3. Galeri Bölümü: D:\üniversite\1.jpg ... 10.jpg Rastgele/Karışık Sıralı Oluşturucu
+        const galleryGrid = document.getElementById('gallery-grid');
+        const shuffleBtn = document.getElementById('shuffle-gallery-btn');
+        
+        // Başlangıçta istenen karışık sıra: 7, 2, 10, 4, 1, 9, 5, 3, 8, 6
+        let imageOrder = [7, 2, 10, 4, 1, 9, 5, 3, 8, 6];
+
+        const photoCaptions = {
+            1: "Konuralp Yerleşkesi Ana Giriş",
+            2: "Merkez Kütüphane ve Çalışma Alanları",
+            3: "Düzce Teknopark İnovasyon Merkezi",
+            4: "Mühendislik Fakültesi Laboratuvarları",
+            5: "Kampüs Yeşil Alan ve Yürüyüş Yolu",
+            6: "Tıp Fakültesi ve Araştırma Hastanesi",
+            7: "Orman Fakültesi Botanik Alanı",
+            8: "Öğrenci Yaşam ve Kültür Merkezi",
+            9: "Spor Kompleksi ve Stadyum",
+            10: "Cumhuriyet Konferans Salonu"
+        };
+
+        // Yerel dosya tarayıcı güvenlik politikası nedeniyle önizlemede engellenirse devreye giren şık yer tutucu
+        function handleLocalImageError(imgElement, num) {
+            const container = imgElement.parentElement;
+            imgElement.style.display = 'none';
+            
+            const fallback = document.createElement('div');
+            fallback.className = 'w-full h-full flex flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-[#0b2b36] via-[#0e3a3e] to-[#08222a] text-emerald-100';
+            fallback.innerHTML = `
+                <div class="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300 mb-2">
+                    <i class="fa-regular fa-image text-lg"></i>
+                </div>
+                <span class="font-mono text-xs font-bold text-emerald-300">D:\\üniversite\\${num}.jpg</span>
+                <span class="text-[11px] text-slate-300 mt-1 line-clamp-1">${photoCaptions[num]}</span>
+                <span class="mt-2 text-[10px] px-2 py-0.5 rounded bg-white/10 text-slate-300">Yerel Dosya Görseli #${num}</span>
+            `;
+            container.appendChild(fallback);
+        }
+
+        function renderGallery(orderArray) {
+            galleryGrid.innerHTML = '';
+            orderArray.forEach((num) => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl overflow-hidden group border border-teal-500/25 hover:border-emerald-400/60 transition flex flex-col';
+                
+                // Sabit en-boy oranı (aspect-ratio: 4/3) korunur
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = 'relative w-full aspect-[4/3] bg-slate-900 overflow-hidden';
+
+                const img = document.createElement('img');
+                // Bilgisayarda yerel olarak açıldığında doğrudan D:\üniversite\X.jpg yolunu okur
+                img.src = `file:///D:/üniversite/${num}.jpg`;
+                img.alt = `Düzce Üniversitesi Galeri Görseli ${num} - ${photoCaptions[num]}`;
+                img.className = 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500';
+                img.onerror = function() {
+                    handleLocalImageError(this, num);
+                };
+
+                // Sağ üst köşe numara rozeti
+                const badge = document.createElement('span');
+                badge.className = 'absolute top-2.5 right-2.5 z-10 px-2 py-0.5 rounded-md bg-black/65 backdrop-blur-sm text-emerald-300 font-mono text-xs font-bold border border-white/10';
+                badge.textContent = `${num}.jpg`;
+
+                imgWrapper.appendChild(img);
+                imgWrapper.appendChild(badge);
+
+                const captionArea = document.createElement('div');
+                captionArea.className = 'p-3 bg-slate-950/40 flex items-center justify-between gap-2';
+                captionArea.innerHTML = `
+                    <span class="text-xs font-medium text-slate-200 truncate" title="${photoCaptions[num]}">${photoCaptions[num]}</span>
+                    <span class="text-[10px] font-mono text-emerald-400 shrink-0">#${num}</span>
+                `;
+
+                card.appendChild(imgWrapper);
+                card.appendChild(captionArea);
+                galleryGrid.appendChild(card);
+            });
+        }
+
+        // İlk yüklemede karışık sırayla galeriyi çiz
+        renderGallery(imageOrder);
+
+        // Karıştır butonu ile Fisher-Yates algoritması kullanarak yeniden rastgele sırala
+        shuffleBtn.addEventListener('click', () => {
+            for (let i = imageOrder.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [imageOrder[i], imageOrder[j]] = [imageOrder[j], imageOrder[i]];
+            }
+            renderGallery(imageOrder);
+        });
+
+        // 4. Sık Sorulan Sorular (SSS) Akordiyon Etkileşimi
+        const faqButtons = document.querySelectorAll('.faq-btn');
+        faqButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currentItem = btn.parentElement;
+                const isAlreadyActive = currentItem.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                if (!isAlreadyActive) {
+                    currentItem.classList.add('active');
+                }
+            });
+        });
+
+        // 5. Konum Alma ve Düzce Üniversitesi Konuralp Yerleşkesi'ne Haversine Mesafe Hesaplama
+        const getLocationBtn = document.getElementById('get-location-btn');
+        const resultBox = document.getElementById('location-result-box');
+        const errorBox = document.getElementById('location-error-box');
+        const errorText = document.getElementById('location-error-text');
+        const userCoordsEl = document.getElementById('user-coords');
+        const campusDistanceEl = document.getElementById('campus-distance');
+        const accuracyEl = document.getElementById('location-accuracy');
+        const gmapsLink = document.getElementById('gmaps-directions-link');
+
+        // Düzce Üniversitesi Konuralp Yerleşkesi Koordinatları
+        const CAMPUS_LAT = 40.9056;
+        const CAMPUS_LON = 31.1811;
+
+        // Haversine Formülü ile iki koordinat arası km cinsinden mesafe
+        function calculateHaversineDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Dünya yarıçapı (km)
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        getLocationBtn.addEventListener('click', () => {
+            errorBox.classList.add('hidden');
+            
+            if (!navigator.geolocation) {
+                errorText.textContent = "Tarayıcınız konum alma (Geolocation) özelliğini desteklemiyor.";
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const originalBtnHTML = getLocationBtn.innerHTML;
+            getLocationBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Konumunuz Alınıyor...</span>';
+            getLocationBtn.disabled = true;
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLat = position.coords.latitude;
+                    const userLon = position.coords.longitude;
+                    const accuracy = Math.round(position.coords.accuracy);
+
+                    const distanceKm = calculateHaversineDistance(userLat, userLon, CAMPUS_LAT, CAMPUS_LON);
+
+                    userCoordsEl.textContent = `${userLat.toFixed(4)}° K, ${userLon.toFixed(4)}° D`;
+                    campusDistanceEl.textContent = distanceKm < 1 
+                        ? `${Math.round(distanceKm * 1000)} metre` 
+                        : `${distanceKm.toFixed(2)} km`;
+                    accuracyEl.textContent = `±${accuracy}m hassasiyet`;
+
+                    gmapsLink.href = `https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLon}&destination=${CAMPUS_LAT},${CAMPUS_LON}`;
+
+                    resultBox.classList.remove('hidden');
+                    getLocationBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i><span>Konumu Yeniden Ölç</span>';
+                    getLocationBtn.disabled = false;
+                },
+                (error) => {
+                    let msg = "Konum bilgisi alınamadı.";
+                    if (error.code === error.PERMISSION_DENIED) {
+                        msg = "Konum izni reddedildi. Tarayıcı ayarlarından konum erişimine izin vererek tekrar deneyebilirsiniz.";
+                    } else if (error.code === error.POSITION_UNAVAILABLE) {
+                        msg = "Konum bilgisi şu anda kullanılamıyor.";
+                    } else if (error.code === error.TIMEOUT) {
+                        msg = "Konum alma isteği zaman aşımına uğradı.";
+                    }
+                    errorText.textContent = msg;
+                    errorBox.classList.remove('hidden');
+                    getLocationBtn.innerHTML = originalBtnHTML;
+                    getLocationBtn.disabled = false;
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        });
+    </script>
+</body>
+</html>```
